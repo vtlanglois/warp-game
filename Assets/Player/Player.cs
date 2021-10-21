@@ -42,8 +42,10 @@ public class Player : MonoBehaviour
             pos.x -= speed * Time.deltaTime;
         }
 
-
+        Vector3 movement = new Vector3(pos.x, pos.y, 0);
+        movement = movement.normalized * speed * Time.deltaTime;
         transform.position = pos;
+        
 
 
     }

@@ -12,6 +12,7 @@ public class Light : MonoBehaviour
     {
         isOn = false;
         sprite = GetComponent<SpriteRenderer>();
+        sprite.color = new Color(0, 0, 0, 255);
     }
 
     // Update is called once per frame
@@ -26,10 +27,10 @@ public class Light : MonoBehaviour
         isOn = !isOn;
         if(isOn)
         {
-           sprite.color = new Color(0, 0, 0, 255);
+           sprite.color = new Color(255, 255, 255, 255);
         } else
         {
-            sprite.color = new Color(255, 255, 255, 255);
+            sprite.color = new Color(0, 0, 0, 255);
         }
  
         

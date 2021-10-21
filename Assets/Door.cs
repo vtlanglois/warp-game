@@ -7,23 +7,33 @@ public class Door : MonoBehaviour
 {
     [SerializeField] string _nextLevel;
     [SerializeField] public bool isOpen;
+    SpriteRenderer sprite;
     // Start is called before the first frame update
     void Start()
     {
-        
+        sprite = GetComponent<SpriteRenderer>();
+        sprite.color = new Color(0, 0, 0, 255);
     }
 
     // Update is called once per frame
     void Update()
     {
 
-       
-        
+        if (isOpen)
+        {
+            sprite.color = new Color(255, 255, 255, 255);
+        }
+        else
+        {
+            sprite.color = new Color(0, 0, 0, 255);
+        }
+
     }
 
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+
         if (isOpen)
         {
             Debug.Log("collison!");
