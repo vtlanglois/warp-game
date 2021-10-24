@@ -5,50 +5,47 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] float speed = 3f;
+    float horizontalInput, verticalInput, teleportDistance;
+    Rigidbody2D rb;
     // Start is called before the first frame update
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody2D>();
+        teleportDistance = 1f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        /*float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
-
-       
-        Vector3 movement = new Vector3( horizontalInput, verticalInput, 0);
-        movement = movement.normalized * speed * Time.deltaTime;
-
-        transform.position += movement;*/
-
-        Vector3 pos = transform.position;
-
-        if (Input.GetKey("w"))
+        horizontalInput = Input.GetAxisRaw("Horizontal");
+        verticalInput = Input.GetAxisRaw("Vertical");
+        if(Input.GetKey(KeyCode.Return))
         {
-            pos.y += speed * Time.deltaTime;
+            StartCoroutine(Teleport());
         }
-        if (Input.GetKey("s"))
-        {
-            pos.y -= speed * Time.deltaTime;
-        }
-        if (Input.GetKey("d"))
-        {
-            pos.x += speed * Time.deltaTime;
-        }
-        if (Input.GetKey("a"))
-        {
-            pos.x -= speed * Time.deltaTime;
-        }
-
-        Vector3 movement = new Vector3(pos.x, pos.y, 0);
-        movement = movement.normalized * speed * Time.deltaTime;
-        transform.position = pos;
-        
-
 
     }
 
-    
+    private void FixedUpdate()
+    {
+        Vector2 velocity = new Vector2(horizontalInput, verticalInput);
+        //velocity = velocity.normalized * speed * Time.deltaTime;
+        rb.velocity = velocity * speed;
+    }
+
+    private IEnumerator Teleport()
+    {
+        if (Input.GetKey(KeyCode.W))
+        {
+            transform.position = new Vector2(transform.position.x, transform.position.y + teleportDistance);
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            transform.position = new Vector2(transform.position.x, transform.position.y - teleportDistance);
+        }
+
+        yield return null;
+    }
+
+
 }
