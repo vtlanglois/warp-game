@@ -20,4 +20,15 @@ public class Bullet : MonoBehaviour
     {
         Destroy(gameObject);
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.name == "Tilemap_Gap")
+        {
+            gameObject.GetComponent<Rigidbody2D>().velocity = -gameObject.GetComponent<Rigidbody2D>().velocity;
+            //gameObject.transform.Rotate(new Vector3(0, 90, 0));
+        }
+
+        Debug.Log("bullet collision!");
+    }
 }

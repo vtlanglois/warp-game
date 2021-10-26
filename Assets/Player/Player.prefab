@@ -243,3 +243,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletForce: 20
   bulletPrefab: {fileID: 1963565080144607974, guid: 95a6a422ff4bd4c4eb5c00226b6808b5, type: 3}
+  gunType: 0
