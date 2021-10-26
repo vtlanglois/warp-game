@@ -49,12 +49,11 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.GetComponent<ShotgunPowerup>().gameObject != null)
+        /*if(collision.gameObject.GetComponent<ShotgunPowerup>().gameObject != null)
         {
             Debug.Log("shotgun!");
             Destroy(collision.gameObject);
-            gameObject.GetComponent<Gun>().gameObject.GetComponent<Gun>().gunType = 2;
-        }
+        }*/
         Debug.Log("collision!");
     }
 
