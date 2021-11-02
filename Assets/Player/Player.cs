@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] float speed = 3f;
-    float horizontalInput, verticalInput, teleportDistance;
+    [SerializeField] float speed = 50f;
+    float horizontalInput, verticalInput;
     Rigidbody2D rb;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        teleportDistance = 1f;
     }
 
     // Update is called once per frame
@@ -19,41 +18,18 @@ public class Player : MonoBehaviour
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
-        if(Input.GetKey(KeyCode.Return))
-        {
-            StartCoroutine(Teleport());
-        }
-
     }
 
     private void FixedUpdate()
     {
+        rb.velocity = new Vector2(0, 0);
         Vector2 velocity = new Vector2(horizontalInput, verticalInput);
-        //velocity = velocity.normalized * speed * Time.deltaTime;
-        rb.velocity = velocity * speed;
+        rb.velocity += velocity * speed;
     }
 
-    private IEnumerator Teleport()
-    {
-        if (Input.GetKey(KeyCode.W))
-        {
-            transform.position = new Vector2(transform.position.x, transform.position.y + teleportDistance);
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            transform.position = new Vector2(transform.position.x, transform.position.y - teleportDistance);
-        }
-
-        yield return null;
-    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        /*if(collision.gameObject.GetComponent<ShotgunPowerup>().gameObject != null)
-        {
-            Debug.Log("shotgun!");
-            Destroy(collision.gameObject);
-        }*/
         Debug.Log("collision!");
     }
 

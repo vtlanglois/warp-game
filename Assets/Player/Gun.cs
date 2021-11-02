@@ -6,46 +6,44 @@ public class Gun : MonoBehaviour
 {
 
     
-    public float bulletForce = 200f;
+    [SerializeField] public float bulletForce = 1f;
+    [SerializeField] float bulletTime = 2.0f;
+    float currentBulletTime;
     [SerializeField] public GameObject bulletPrefab;
+    [SerializeField] GameObject player;
     public int gunType;
     // Start is called before the first frame update
     void Start()
     {
         gunType = 1;
+        currentBulletTime = bulletTime;
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         transform.rotation = Quaternion.LookRotation(Vector3.forward, mousePos - transform.position);
 
-        if (Input.GetButtonDown("Fire1"))
+        currentBulletTime -= Time.deltaTime;
+        if (currentBulletTime < 0)
         {
             Shoot();
+            currentBulletTime = bulletTime;
         }
+
     }
 
     void Shoot()
     {
-        switch(gunType)
-        {
-            case 1:
-                GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
-                Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-                rb.AddForce(transform.up * bulletForce, ForceMode2D.Impulse);
-                break;
-            case 2:
-                GameObject speedyBullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
-                Rigidbody2D speedyBullet_rb = speedyBullet.GetComponent<Rigidbody2D>();
-                speedyBullet_rb.AddForce(transform.up * (bulletForce+100f), ForceMode2D.Impulse);
-                break;
-        }
-        
-        /*GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
+        //Vector3 distanceVector = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //distanceVector = distanceVector.normalized;
+        //Vector3 targetPosition = (distanceVector * 5.0f);
+        GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-        rb.AddForce(transform.up * bulletForce, ForceMode2D.Impulse);*/
+        rb.AddForce(transform.up * bulletForce, ForceMode2D.Impulse);
+
     }
 
 

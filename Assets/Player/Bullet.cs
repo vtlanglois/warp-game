@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+
+    float gracePeriod = 0.5f;
+    float currentTime = 0;
+    bool lethal = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +17,16 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
+        if (currentTime >= gracePeriod)
+        {
+            Physics2D.IgnoreLayerCollision(6, 7, false);
+            Debug.Log("time!");
+        } else
+        {
+            currentTime += Time.deltaTime;
+        }
+        */
         
     }
 
@@ -21,14 +35,13 @@ public class Bullet : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.name == "Tilemap_Gap")
+        if (collision.gameObject.name == "Player" )
         {
-            gameObject.GetComponent<Rigidbody2D>().velocity = -gameObject.GetComponent<Rigidbody2D>().velocity;
-            //gameObject.transform.Rotate(new Vector3(0, 90, 0));
+            Destroy(gameObject);
+            Debug.Log("player!");
         }
-
-        Debug.Log("bullet collision!");
+        
     }
 }
