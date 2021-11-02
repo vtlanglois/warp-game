@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Bullet : MonoBehaviour
 {
@@ -17,16 +18,6 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*
-        if (currentTime >= gracePeriod)
-        {
-            Physics2D.IgnoreLayerCollision(6, 7, false);
-            Debug.Log("time!");
-        } else
-        {
-            currentTime += Time.deltaTime;
-        }
-        */
         
     }
 
@@ -39,7 +30,7 @@ public class Bullet : MonoBehaviour
     {
         if (collision.gameObject.name == "Player" )
         {
-            Destroy(gameObject);
+            SceneManager.LoadScene("lvl_1", LoadSceneMode.Single);
             Debug.Log("player!");
         }
         

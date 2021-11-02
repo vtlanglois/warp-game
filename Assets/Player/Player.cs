@@ -18,6 +18,8 @@ public class Player : MonoBehaviour
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        transform.rotation = Quaternion.LookRotation(Vector3.forward, mousePos - transform.position);
     }
 
     private void FixedUpdate()

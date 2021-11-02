@@ -22,10 +22,7 @@ public class Gun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        transform.rotation = Quaternion.LookRotation(Vector3.forward, mousePos - transform.position);
-
+     
         currentBulletTime -= Time.deltaTime;
         if (currentBulletTime < 0)
         {
@@ -37,9 +34,6 @@ public class Gun : MonoBehaviour
 
     void Shoot()
     {
-        //Vector3 distanceVector = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //distanceVector = distanceVector.normalized;
-        //Vector3 targetPosition = (distanceVector * 5.0f);
         GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.AddForce(transform.up * bulletForce, ForceMode2D.Impulse);
